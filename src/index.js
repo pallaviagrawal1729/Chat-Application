@@ -2,13 +2,15 @@ const http = require('http');
 const express = require('express');
 const path = require('path');
 const socketio = require('socket.io');
+const Filter = require('bad-words');
 const { generateMessage } = require('./utils/messages');
 const { addUser, removeUser, getUser, getUserByName, getUsersListByRoom } = require('./utils/users');
-const Filter = require('bad-words');
+const {sendWelcomeMessage,sendMessage, shareLocation } = require('./utils/messages'); 
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-const {sendWelcomeMessage,sendMessage, shareLocation } = require('./utils/messages');
+const port = process.env.port || 3000;
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 io.on('connection', (socket) => {
@@ -50,7 +52,7 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(3000, () => {
+server.listen(port, () => {
     console.log("Server is listening on port 3000");
     addUser({id: 0, username: 'Admin', room: "none", color: "#ff00000"});
 });
