@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <div id="container">
+        <div id="sidebar"></div>
+        <div id="chat-container">
+            <div id="chat-messages"></div>
+            <div id="input-container">
+                <input type="text" name="message" id="message-input" placeholder="Type your message...">
+                <button id="send-button">Send</button>
+                <button id="send-location"><img src="./img/map.png" alt="Location"/></button>
+            </div>
+        </div>
+    </div>
+
+    <script id="message-template" type="text/html">
+        <div class="bubble {{senderInfo}}">
+            <b><small style="color: {{color}};">{{username}}</small></b><br>
+            {{text}}<br>
+            <small>{{createdAt}}</small>
+        </div>
+    </script>
+    
+    <script id="location-template" type="text/html">
+        <div class="bubble {{senderInfo}}">
+            <b><small style="color: {{color}};">{{username}} shared location, check: </small></b><br>
+            <a href="{{url}}">My Current Location</a><br>
+            <small>{{createdAt}}</small>
+        </div>
+    </script>
+
+    <script id="siderbar-template" type="text/html">
+            <h2 style="color: #292857;">Users in the Room</h2>
+            <ul id="user-list">
+                {{#users}}
+                    <li>{{username}}</li>
+                {{/users}}
+            </ul>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/chat.js"></script>
+</body>
+</html>
